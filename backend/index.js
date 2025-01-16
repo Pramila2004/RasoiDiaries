@@ -2,7 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser';
 import DBConnection from "./database/db_connection.js";
 import cors from 'cors'
-
+import authRoutes from './routes/auth.js'
 
 
 const app = express();
@@ -20,9 +20,7 @@ app.use(cors({
 }));
 
 
-app.get('/', (req,res)=>{
-    res.send('Hello world')
-});
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
