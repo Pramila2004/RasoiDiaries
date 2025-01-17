@@ -27,16 +27,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    bannerPhoto: {
-      type: String,
-      default: '',
-    },
-    birthdate: {
-      type: Date,
-    },
-    zipcode: {
-      type: String,
-    },
     likedRecipes: [
       {
         type: mongoose.Schema.Types.ObjectId,

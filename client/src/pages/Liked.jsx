@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHome, FaHeart, FaBook, FaUserEdit, FaSignOutAlt,FaUtensils } from "react-icons/fa";
 import "../styles/Profile.css";
-import ProfileInfo from '../components/ProfileInfo/ProfileInfo.js'
+import MyFavorite from '../components/MyFavorite/MyFavorite.js'
 const Profile = () => {
   return (
     <div className="recipes-container">
@@ -9,12 +9,12 @@ const Profile = () => {
         <nav>
           <ul>
             <a href="/profile">
-              <li className="menu-item active">
+              <li className="menu-item ">
                 <FaHome className="menu-icon" /> Home
               </li>
             </a>
             <a href="/liked">
-              <li className="menu-item">
+              <li className="menu-item active">
                 <FaHeart className="menu-icon" /> Favorite
               </li>
             </a>
@@ -44,7 +44,7 @@ const Profile = () => {
           {/* Add any header content here */}
         </header>
         <section>
-            <ProfileInfo/>
+            <MyFavorite/>
         </section>
       </main>
     </div>
