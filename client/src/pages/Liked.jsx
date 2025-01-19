@@ -40,9 +40,7 @@ const Profile = () => {
         </button>
       </aside>
       <main className="main-content">
-        <header className="header">
-          {/* Add any header content here */}
-        </header>
+
         <section>
             <MyFavorite/>
         </section>

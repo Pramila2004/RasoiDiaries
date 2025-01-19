@@ -6,7 +6,7 @@ export default function Singlepage() {
   return (
     <div className="single-page">
         <div className="recipe-card">
-    <div className="header">
+    <div className="name-of-recipe">
         <div className="left-side">
             <h1>Sweet Apple Squares</h1>
             <p>With cinnamon and thyme</p>

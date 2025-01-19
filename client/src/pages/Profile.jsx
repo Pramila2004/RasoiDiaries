@@ -2,6 +2,7 @@ import React from "react";
 import { FaHome, FaHeart, FaBook, FaUserEdit, FaSignOutAlt,FaUtensils } from "react-icons/fa";
 import "../styles/Profile.css";
 import ProfileInfo from '../components/ProfileInfo/ProfileInfo.js'
+
 const Profile = () => {
   return (
     <div className="recipes-container">
@@ -40,9 +41,7 @@ const Profile = () => {
         </button>
       </aside>
       <main className="main-content">
-        <header className="header">
-          {/* Add any header content here */}
-        </header>
+
         <section>
             <ProfileInfo/>
         </section>

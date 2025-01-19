@@ -1,0 +1,78 @@
+/* Navbar Styling */
+.header {
+    position: fixed; /* Ensures the navbar stays visible at the top */
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    position: relative;
+    z-index: 100; /* Ensures it appears above other elements */
+    background: rgba(0, 0, 0, 0.8); /* Darker background for better contrast */
+    backdrop-filter: blur(4px); /* Reduce blur for clarity */
+    color: #fff;
+  }
+  
+  .logo {
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff6600; /* Makes the logo pop */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Adds a shadow for better readability */
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav a:hover {
+    color: #ff6600; /* Highlight link on hover */
+    text-shadow: 0 0 5px rgba(255, 102, 0, 0.8); /* Adds glow effect */
+  }
+
+  .login-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+
+  
+  .login-btn:hover {
+    background-color: #ff4500;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      padding: 10px 20px;
+    }
+  
+    .nav {
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  
+    .nav a {
+      margin: 10px 0;
+    }
+  
+    .login-btn {
+      margin-top: 10px;
+    }
+  }
+  

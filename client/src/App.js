@@ -8,14 +8,20 @@ import Add_recepie from './pages/Add_recepie'
 import Profile_Update from './pages/Profile_Update'
 import Liked from './pages/Liked'
 import MyRecipes from './pages/MyRecipes';
-
+import Navbar from './components/Navbar/Navbar';
+import Search from './pages/Search'
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/singlepage" element={<SinglePage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/updateProfile" element={<Profile_Update />} />
