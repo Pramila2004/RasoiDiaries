@@ -3,6 +3,11 @@ import cookieParser from 'cookie-parser';
 import DBConnection from "./database/db_connection.js";
 import cors from 'cors'
 import authRoutes from './routes/auth.js'
+import userRoutes from './routes/user.js'
+import recipeRoutes from './routes/recipe.js'
+import likeRoutes from './routes/like.js'
+import contactRoutes from './routes/comment.js'
+import commentRoutes from './routes/comment.js'
 
 
 const app = express();
@@ -21,6 +26,12 @@ app.use(cors({
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/recipe', recipeRoutes);
+app.use('/api/recipeLike', likeRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/rating', commentRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

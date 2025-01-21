@@ -1,32 +1,51 @@
 import React, { useState } from "react";
 import "./AddRecipe.css";
+import UploadRecipe from "../uploadWidget/uploadReipe.js";
+import { post } from "../../services/ApiEndpoint.js";
+import { toast } from "react-hot-toast";
 
 const RecipeForm = () => {
   const [recipe, setRecipe] = useState({
+    title: "",
     description: "",
+    photo: "images/recipe_upload.jpg",
     videoUrl: "",
     ingredients: [],
     directions: [],
-    finishingSteps: [],
-    servings: 5,
-    cookingTime: { hours: 1, minutes: 30 },
-    prepTime: { hours: 0, minutes: 0 },
+    servings: 0,
+    cookTime: 0,
+    prepTime: 0,
     category: "",
     country: "",
-    note:""
+    additionalNote: "",
   });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const [coverPhoto, setCoverPhoto] = useState(null);
-
-  const handleCoverPhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCoverPhoto(e.target.result); // Convert the file into a base64 URL
-      };
-      reader.readAsDataURL(file);
+    try {
+      console.log("Submitting recipe:", recipe);
+      const response = await post("/api/recipe/createRecipe", recipe);
+      if (response.status === 200) {
+        toast.success(response.data.message || "Recipe Published successfully!");
+        setRecipe({
+          title: "",
+          description: "",
+          photo: "images/recipe_upload.jpg",
+          videoUrl: "",
+          ingredients: [],
+          directions: [],
+          servings: 0,
+          cookTime: 0,
+          prepTime: 0,
+          category: "",
+          country: "",
+          additionalNote: "",
+        });
+      }
+    } catch (error) {
+      console.error("Submit Error:", error);
+      toast.error(error.response?.data?.message || "An error occurred while publishing your recipe.");
     }
   };
 
@@ -38,39 +57,42 @@ const RecipeForm = () => {
     setRecipe({ ...recipe, directions: [...recipe.directions, ""] });
   };
 
-
+  const setPhoto = (newPhoto) => {
+    setRecipe({ ...recipe, photo: newPhoto });
+  };
 
   return (
     <div className="recipe-form">
       <h2>New Recipe</h2>
-
       <div className="cover-photo-banner">
         <div className="img-upload">
-            <label htmlFor="coverPhoto" className="upload-label">
-            <img
-                src={
-                coverPhoto ||
-                "images/recipe_upload.jpg"
-                }
-                alt="Cover"
-                className="banner-image"
-                onChange={handleCoverPhotoChange}
-            />
-            </label>
+          <label htmlFor="coverPhoto" className="upload-label"></label>
+          <div className="avatar-section">
+            <img src={recipe.photo} alt="photo" className="banner-image" />
+          </div>
         </div>
-        
 
-        <div className="upload-button">
-            <button>Upload</button>
-        </div>
-        
+        <UploadRecipe
+          uwConfig={{
+            cloudName: 'dpqnyim8p',
+            uploadPreset: 'rasoi-diaries',
+            folder: 'recipes',
+          }}
+          setPhoto={setPhoto}
+        />
       </div>
-      
-
 
       <div className="form-section">
         <label>Title</label>
-        <input type="text" name="title" placeholder="Add title"/>
+        <input
+          type="text"
+          name="title"
+          value={recipe.title}
+          onChange={(e) =>
+            setRecipe({ ...recipe, title: e.target.value })
+          }
+          placeholder="Add title"
+        />
       </div>
 
       <div className="form-section">
@@ -95,68 +117,66 @@ const RecipeForm = () => {
       </div>
 
       <div className="form-section">
-  <label>Ingredients</label>
-  {recipe.ingredients.map((_, index) => (
-    <div key={index} className="ingredient-item">
-      <input
-        type="text"
-        value={recipe.ingredients[index]}
-        onChange={(e) => {
-          const newIngredients = [...recipe.ingredients];
-          newIngredients[index] = e.target.value;
-          setRecipe({ ...recipe, ingredients: newIngredients });
-        }}
-        placeholder={`Ingredient ${index + 1}`}
-      />
-      <button
-        type="button"
-        className="remove-button"
-        onClick={() => {
-          const newIngredients = [...recipe.ingredients];
-          newIngredients.splice(index, 1);
-          setRecipe({ ...recipe, ingredients: newIngredients });
-        }}
-      >
-        x
-      </button>
-    </div>
-  ))}
-  <button type="button" onClick={handleAddIngredient}>
-    Add Ingredient
-  </button>
-</div>
+        <label>Ingredients</label>
+        {recipe.ingredients.map((ingredient, index) => (
+          <div key={index} className="ingredient-item">
+            <input
+              type="text"
+              value={ingredient}
+              onChange={(e) => {
+                const newIngredients = [...recipe.ingredients];
+                newIngredients[index] = e.target.value;
+                setRecipe({ ...recipe, ingredients: newIngredients });
+              }}
+              placeholder={`Ingredient ${index + 1}`}
+            />
+            <button
+              type="button"
+              className="remove-button"
+              onClick={() => {
+                const newIngredients = [...recipe.ingredients];
+                newIngredients.splice(index, 1);
+                setRecipe({ ...recipe, ingredients: newIngredients });
+              }}
+            >
+              x
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddIngredient}>
+          Add Ingredient
+        </button>
+      </div>
 
-<div className="form-section">
-  <label>Directions</label>
-  {recipe.directions.map((_, index) => (
-    <div key={index} className="direction-item">
-      <textarea
-        value={recipe.directions[index]}
-        onChange={(e) => {
-          const newDirections = [...recipe.directions];
-          newDirections[index] = e.target.value;
-          setRecipe({ ...recipe, directions: newDirections });
-        }}
-        placeholder={`Step ${index + 1}`}
-      />
-      <button
-        className="remove-button"
-        onClick={() => {
-          const newDirections = [...recipe.directions];
-          newDirections.splice(index, 1);
-          setRecipe({ ...recipe, directions: newDirections });
-        }}
-      >
-        x
-      </button>
-    </div>
-  ))}
-  <button type="button" onClick={handleAddDirection}>
-    Add Direction
-  </button>
-</div>
-
-   
+      <div className="form-section">
+        <label>Directions</label>
+        {recipe.directions.map((direction, index) => (
+          <div key={index} className="direction-item">
+            <textarea
+              value={direction}
+              onChange={(e) => {
+                const newDirections = [...recipe.directions];
+                newDirections[index] = e.target.value;
+                setRecipe({ ...recipe, directions: newDirections });
+              }}
+              placeholder={`Step ${index + 1}`}
+            />
+            <button
+              className="remove-button"
+              onClick={() => {
+                const newDirections = [...recipe.directions];
+                newDirections.splice(index, 1);
+                setRecipe({ ...recipe, directions: newDirections });
+              }}
+            >
+              x
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddDirection}>
+          Add Direction
+        </button>
+      </div>
 
       <div className="form-section">
         <label>Servings</label>
@@ -170,65 +190,40 @@ const RecipeForm = () => {
       </div>
 
       <div className="form-section">
-  <label>Cooking Time</label>
-  <div className="time-inputs">
-    <input
-      type="number"
-      value={recipe.cookingTime.hours}
-      placeholder="0"
-      onChange={(e) =>
-        setRecipe({
-          ...recipe,
-          cookingTime: { ...recipe.cookingTime, hours: e.target.value },
-        })
-      }
-    />
-    <span>Hours</span>
-    <input
-      type="number"
-      value={recipe.cookingTime.minutes}
-      placeholder="0"
-      onChange={(e) =>
-        setRecipe({
-          ...recipe,
-          cookingTime: { ...recipe.cookingTime, minutes: e.target.value },
-        })
-      }
-    />
-    <span>Minutes</span>
-  </div>
-</div>
+        <label>Cooking Time</label>
+        <div className="time-inputs">
+          <input
+            type="number"
+            value={recipe.cookTime}
+            placeholder="0"
+            onChange={(e) =>
+              setRecipe({
+                ...recipe,
+                cookTime: e.target.value, // Save total minutes instead of object
+              })
+            }
+          />
+          <span>Minutes</span>
+        </div>
+      </div>
 
-<div className="form-section">
-  <label>Prep Time</label>
-  <div className="time-inputs">
-    <input
-      type="number"
-      value={recipe.prepTime.hours}
-      placeholder="0"
-      onChange={(e) =>
-        setRecipe({
-          ...recipe,
-          prepTime: { ...recipe.prepTime, hours: e.target.value },
-        })
-      }
-    />
-    <span>Hours</span>
-    <input
-      type="number"
-      value={recipe.prepTime.minutes}
-      placeholder="0"
-      onChange={(e) =>
-        setRecipe({
-          ...recipe,
-          prepTime: { ...recipe.prepTime, minutes: e.target.value },
-        })
-      }
-    />
-    <span>Minutes</span>
-  </div>
-</div>
-
+      <div className="form-section">
+        <label>Prep Time</label>
+        <div className="time-inputs">
+          <input
+            type="number"
+            value={recipe.prepTime}
+            placeholder="0"
+            onChange={(e) =>
+              setRecipe({
+                ...recipe,
+                prepTime: e.target.value, // Save total minutes instead of object
+              })
+            }
+          />
+          <span>Minutes</span>
+        </div>
+      </div>
 
       <div className="form-section">
         <label>Category</label>
@@ -249,18 +244,27 @@ const RecipeForm = () => {
           onChange={(e) => setRecipe({ ...recipe, country: e.target.value })}
         >
           <option value="India">India</option>
-          <option value="Maxican">Maxican</option>
+          <option value="Mexico">Mexico</option>
           <option value="UK">UK</option>
         </select>
       </div>
 
       <div className="form-section">
         <label>Note</label>
-        <input type="text" name="note" placeholder="Add additional note"/>
+        <input
+          onChange={(e) =>
+            setRecipe({ ...recipe, additionalNote: e.target.value })
+          }
+          type="text"
+          name="note"
+          placeholder="Add additional note"
+        />
       </div>
 
       <div className="form-section">
-        <button type="button">Publish</button>
+        <button onClick={handleSubmit} type="button">
+          Publish
+        </button>
       </div>
     </div>
   );

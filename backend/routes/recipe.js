@@ -1,13 +1,14 @@
 import express from 'express'
-import { followUser, getFollowers, getFollowingUsers, getUser, login, updateUser } from '../controllers/user_controller.js';
+import { createRecipe, getAllRecipes, getMyRecipes, getSingleRecipe } from '../controllers/recipe_controller.js';
+import verifyToken from '../middleware/verifyToken.js';
 
 const router=express.Router();
 
-router.post('/createRecipe',followUser);
-router.get('/getAllRecipes',getUser);
-router.get('/getSingleRecipe/:id',followUser);
-router.get('/getMyRecipes',getFollowingUsers);
-router.get('/getMySavedRecipes',getFollowers);
+router.post('/createRecipe',verifyToken, createRecipe);
+router.get('/getAllRecipes',getAllRecipes);
+router.get('/getSingleRecipe/:id',getSingleRecipe);
+router.get('/getMyRecipes',verifyToken,getMyRecipes);
+// router.get('/getMySavedRecipes',getFollowers);
 
 
 export default router;

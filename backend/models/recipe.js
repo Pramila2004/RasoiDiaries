@@ -10,9 +10,12 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: true, // Recipe description is mandatory
     },
+    videoUrl: {
+      type: String,
+    },
     photo: {
       type: String,
-      default: 'images/recipe-default.jpg', // Default photo for recipes
+      default: 'images/no-img-available.png', // Default photo for recipes
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -43,12 +46,6 @@ const recipeSchema = new mongoose.Schema(
       type: String, // Any additional notes for the recipe
       default: '',
     },
-    likedBy: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // References users who liked the recipe
-      },
-    ],
     category: {
       type: String, // Category for the recipe (e.g., Dessert, Main Course)
       required: true, // Category is mandatory
@@ -57,12 +54,24 @@ const recipeSchema = new mongoose.Schema(
       type: String, // Recipe's country of origin
       default: '', // Optional field
     },
+    likedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // References users who liked the recipe
+      },
+    ],
+    ratings: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Rating', // Reference to Rating model
+      }
+    ]    
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
 // Define the model
-const recipeModel = mongoose.model("Recipe", recipeSchema);
+const Recipe = mongoose.model("Recipe", recipeSchema);
 
 // Export the model
-export default recipeModel;
+export default Recipe;

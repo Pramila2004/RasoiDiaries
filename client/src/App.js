@@ -12,6 +12,9 @@ import Navbar from './components/Navbar/Navbar';
 import Search from './pages/Search'
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
 
 function App() {
   return (
@@ -22,7 +25,9 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/singlepage" element={<SinglePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/singlepage/:id" element={<SinglePage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/updateProfile" element={<Profile_Update />} />
         <Route path="/addRecipe" element={<Add_recepie />} />

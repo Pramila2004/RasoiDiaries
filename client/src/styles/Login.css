@@ -1,0 +1,85 @@
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 640px;
+    margin-top: -20px;
+    background: url('../../public/images/auth2.avif') no-repeat center center/cover;
+  }
+  
+  /* Form styles with glass effect */
+  .auth-form {
+    backdrop-filter: blur(10px); /* Blur effect */
+    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    padding: 30px 40px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+  }
+  
+  .auth-form h2 {
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    color: #ff6600; /* White text for contrast */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    color: #ff6600; /* Light color for text */
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Transparent input border */
+    border-radius: 5px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent input background */
+  }
+  
+
+  
+  .auth-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6600; /* Slightly transparent green */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .auth-button:hover {
+    background-color: #ee6306; /* Slightly darker green */
+
+  }
+  
+  .auth-form p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #eee; /* Light text */
+  }
+  
+  .auth-form p a {
+    color: #ff6600; /* Green link */
+    text-decoration: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+  }
+  
+  .auth-form p a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaHome, FaHeart, FaBook, FaUserEdit, FaSignOutAlt,FaUtensils } from "react-icons/fa";
 import "../styles/Profile.css";
 import ProfileInfo from '../components/ProfileInfo/ProfileInfo.js'
+import { useNavigate } from 'react-router-dom';
+import { post } from "../services/ApiEndpoint.js";
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../context/AuthContext.js';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const {  updateUser } = useContext(AuthContext);
+
+  const handlelogout = async (e) => {
+    e.preventDefault();
+    try {
+      const request = await post('/api/auth/logout');
+      const response = request.data;
+      if (request.status === 200) {
+        toast.success(response.message || 'Logout successful');
+        updateUser(null);
+        navigate('/');
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'An error occurred during logout');
+      console.error('Logout error:', error);
+    }
+  };
   return (
     <div className="recipes-container">
       <aside className="sidebar">
@@ -36,7 +58,7 @@ const Profile = () => {
             </a>
           </ul>
         </nav>
-        <button className="logout-button">
+        <button onClick={handlelogout} className="logout-button">
           <FaSignOutAlt className="logout-icon" /> Log Out
         </button>
       </aside>

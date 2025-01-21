@@ -116,6 +116,119 @@
     list-style-type: decimal;
     padding-left: 20px;
   }
+
+
+  .rating-section {
+    margin-top: 40px;
+  }
+  
+  .rating-section h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .rating-input {
+    margin-bottom: 15px;
+  }
+  
+  .stars {
+    font-size: 30px;
+    color: #ccc;
+  }
+  
+  .star {
+    cursor: pointer;
+    font-size: 40px; /* Increase the size of the stars */
+    color: #ccc; /* Default unselected stars are light grey */
+    cursor: pointer;
+  }
+  
+
+  
+  .star.selected {
+    color: gold;
+  }
+
+  .star:hover {
+    color: gold; /* Hover effect to highlight the star */
+  }
+  
+  .review-input textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+  }
+  
+  button[type="submit"] {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .ratings-list {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .rating-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .user-photo img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #f0f0f0;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-info h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .star {
+    font-size: 1.2rem;
+    color: #ddd;
+  }
+  
+  .star.gold {
+    color: gold;
+  }
+  
+  .star.white {
+    color: #ddd;
+  }
+  
+  .review-text {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #555;
+  }
+  
   
   @media (max-width: 768px) {
     .content {

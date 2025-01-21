@@ -5,8 +5,9 @@
   .sidebar {
     width: 20%;
     background-color: #fff3e6;
-    height: 100vh;
+    height: 550px;
     padding: 2rem;
+    margin-top: -20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

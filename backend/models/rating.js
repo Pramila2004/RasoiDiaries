@@ -2,14 +2,12 @@ import mongoose from "mongoose";
 
 const ratingSchema = new mongoose.Schema(
   {
-    recipeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Recipe', 
+    recipe: {
+      type: Object,
       required: true, 
     },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', 
+    user: {
+      type: Object,
       required: true, 
     },
     rating: {

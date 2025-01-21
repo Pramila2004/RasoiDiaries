@@ -1,46 +1,48 @@
-import React from "react";
-import { FaUserCircle, FaEnvelope, FaUserAlt, FaHeart } from "react-icons/fa";
+import React, { useContext } from "react";
+import {  FaEnvelope, FaUserAlt, FaHeart } from "react-icons/fa";
 import "./ProfileInfo.css"; // Add styling as needed
+import { AuthContext } from "../../context/AuthContext.js";
 
 const Profile = () => {
  
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="profile-container">
       <div className="profile-header">
         <div className="avatar-container">
           <img
-            src="images/user.png"
+            src={currentUser.avatar}
             alt="avatar"
             className="avatar"
           />
         </div>
-        <h1 className="username">John Doe</h1>
+        <h1 className="username">{currentUser.username}</h1>
       </div>
       <div className="profile-details">
         <div className="detail-item">
           <FaEnvelope className="icon" />
-          <span className="detail-text">njohndoe@gmail.com</span>
+          <span className="detail-text">{currentUser.email}</span>
         </div>
         <div className="detail-item">
           <FaUserAlt className="icon" />
-          <span className="detail-text">No bio provided</span>
+          <span className="detail-text">{currentUser.bio || "No Bio provided"}</span>
         </div>
         <div className="detail-item">
           <FaHeart className="icon" />
           <span className="detail-text">
-            10 Liked Recipes
+          {currentUser.likedRecipes.length || '0'}
           </span>
         </div>
       </div>
       <div className="follow-section">
         <div className="followers">
           <h3>Followers</h3>
-          <p>20</p>
+          <p>{currentUser.followers.length || '0'}</p>
         </div>
         <div className="following">
           <h3>Following</h3>
-          <p>30</p>
+          <p>{currentUser.following.length || '0'}</p>
         </div>
       </div>
     </div>

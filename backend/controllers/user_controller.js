@@ -1,39 +1,32 @@
 
-import userModel from "./models/user.js"; // Adjust the path as needed
+import userModel from "../models/user.js"; // Adjust the path as needed
 
 
-export const updateUser= async (req, res) => {
+export const updateUser = async (req, res) => {
   const userId = req.userId;
-  const updateData = req.body;
 
   try {
+    const { username, email, bio, avatar } = req.body;
+
     // Validate user existence
     const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update user fields dynamically
-    const allowedFields = [
-      "bio",
-      "bannerPhoto",
-      "birthdate",
-      "zipcode",
-      "avatar",
-    ];
+    // Update fields dynamically
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (bio) user.bio = bio;
+    if (avatar) user.avatar = avatar;
 
-    allowedFields.forEach((field) => {
-      if (updateData[field] !== undefined) {
-        user[field] = updateData[field];
-      }
-    });
-
-    // Save updated user
+    // Save the updated user
     const updatedUser = await user.save();
+    const { password, ...safeUser } = updatedUser._doc;
 
     res.status(200).json({
       message: "User updated successfully",
-      user: updatedUser,
+      user: safeUser,
     });
   } catch (error) {
     res.status(500).json({ message: "Error updating user", error: error.message });

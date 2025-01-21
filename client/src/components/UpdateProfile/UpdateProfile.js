@@ -1,83 +1,89 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from '../../context/AuthContext.js';
+import { put } from '../../services/ApiEndpoint.js';
+import { toast } from 'react-hot-toast';
 import "./UpdateProfile.css";
+import UploadWidget from '../uploadWidget/uploadWidget.js';
 
 const UserProfileForm = () => {
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    avatar: null,
-  });
+  const {currentUser, updateUser } = useContext(AuthContext);
+  const [username, setUsername] = useState(currentUser?.username || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
+  const [bio, setBio] = useState(currentUser?.bio || 'No Bio');
+  const [avatar, setAvatar] = useState(currentUser?.avatar);
+  
 
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUser({ ...user, avatar: e.target.result }); // Convert file to base64
-      };
-      reader.readAsDataURL(file);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await put('/api/user/update', {username,email,bio,avatar,});
+      console.log('avatar : ',avatar)
+      if (response.status === 200) {
+        toast.success(response.data.message || "Profile updated successfully!");
+        updateUser(response.data.user);
+      }
+    } catch (error) {
+      console.error("Update Error:", error);
+      toast.error(error.response?.data?.message || "An error occurred while updating your profile.");
     }
-  };
-
-  const handleRemoveAvatar = () => {
-    setUser({ ...user, avatar: null });
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
   };
 
   return (
     <div className="user-profile-form">
       <h2>Update Profile</h2>
-
-      <div className="form-section">
-        <div className="avatar-section">
-          <img
-            src={user.avatar || "images/add_avatar.jpeg"}
-            alt="Avatar" onClick={handleRemoveAvatar}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="form-section">
+          <div className="avatar-section">
+            <img src={avatar} alt="Avatar" className="avatar-preview" />
+          </div>
+          <UploadWidget
+            uwConfig={{
+              cloudName: 'dpqnyim8p',
+              uploadPreset: 'rasoi-diaries',
+              folder: 'avatar',
+            }}
+            setAvatar={setAvatar}
           />
         </div>
-      </div>
 
-      <div className="form-section">
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          onChange={handleInputChange}
-          placeholder="Enter your username"
-        />
-      </div>
-
-      <div className="form-section">
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          onChange={handleInputChange}
-          placeholder="Enter your email"
-        />
-      </div>
-
-        
         <div className="form-section">
-        <label>Bio</label>
-        <textarea
-          value=""
-          placeholder="Add a bio"
-        />
-      </div>
-        
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your username"
+          />
+        </div>
 
-      <div className="form-section">
-        <button type="button" className="save-button">
-          Save Changes
-        </button>
-      </div>
+        <div className="form-section">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div className="form-section">
+          <label>Bio</label>
+          <textarea
+            value={bio}
+            placeholder="Add a bio"
+            onChange={(e) => setBio(e.target.value)}
+          />
+        </div>
+
+        <div className="form-section">
+          <button type="submit" className="save-button">
+            Save Changes
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

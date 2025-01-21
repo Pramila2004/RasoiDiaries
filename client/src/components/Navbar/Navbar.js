@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext.js';
 
 export default function Navbar() {
+  const { currentUser } = useContext(AuthContext);
+ 
   return (
       <header className="header">
         <div className="logo">Rasoi Diaries</div>
@@ -13,8 +16,25 @@ export default function Navbar() {
             <Link to="/contact">Contact</Link>
         </nav>
         <div>
-        <button className="login-btn">Login</button>
-        <button className="login-btn">Signup</button>
+          {!currentUser ? (
+            <>
+            <Link to="/login">
+              <button className="login-btn">Login</button>
+            </Link>
+            <Link to="/register">
+              <button className="login-btn">Signup</button>
+            </Link>
+            </>
+          ):(
+            <>
+            <Link to="/profile">
+              <span>{currentUser.username}</span>
+              <button className="login-btn">Profile</button>
+            </Link>
+            </>
+          )}
+          
+
         </div>
         
       </header>
