@@ -30,11 +30,16 @@
   
   .user-photo img{
 
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0.8rem 0;
+  }
+
+  .user-info .date{
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .name-of-recipe h1 {
@@ -43,8 +48,8 @@
   }
   
   .name-of-recipe p {
-    font-size: 1.2rem;
-    color: #a08b7d;
+    font-size: 1rem;
+    color: black;
     margin: 5px 0;
   }
   
@@ -56,7 +61,7 @@
   
   .image-container img {
     width: 100%;
-    height: 500px;
+    height: 450px;
    
   }
   
@@ -66,7 +71,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 1rem;
-    color: #555;
+    color: black;
     border-right: none;
 
   }
@@ -88,14 +93,16 @@
     flex: 2;
     padding-top: 3.5rem;
   }
-
+  .ingredients h2{
+    margin-top: 1rem;
+  }
 
   
   .ingredients h2,
   .directions h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #333;
+    color: black;
   }
   
   .ingredients ul,
@@ -109,7 +116,7 @@
   .directions ol li {
     font-size: 1rem;
     margin: 5px 0;
-    color: #555;
+    color: black;
   }
   
   .directions ol {
@@ -175,7 +182,7 @@
   }
   
   .ratings-list {
-    margin-top: 20px;
+    margin: 2rem 0;
     border-top: 1px solid #ddd;
   }
   
@@ -183,6 +190,7 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
+    margin-top: 1rem;
     border-bottom: 1px solid #eee;
   }
   
@@ -228,11 +236,99 @@
     font-size: 1rem;
     color: #555;
   }
-  
-  
-  @media (max-width: 768px) {
-    .content {
-      flex-direction: column;
-    }
+
+  .date{
+    font-size: 0.8rem;
+    color: #555;
   }
+
+  .search-bar {
+    margin-bottom: 1rem;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+  
+ /* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .recipe-card {
+      max-width: 70%;
+      padding: 0 1.5rem 2rem;
+  }
+
+  .name-of-recipe h1 {
+      font-size: 1.5rem;
+  }
+
+  .content {
+      gap: 1rem;
+  }
+
+  .ingredients {
+      padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-card {
+      max-width: 90%;
+      padding: 0 1rem 2rem;
+  }
+
+  .name-of-recipe h1 {
+      font-size: 1.2rem;
+  }
+
+  .content {
+      flex-direction: column;
+  }
+
+  .ingredients,
+  .directions {
+      text-align: left;
+  }
+
+  .ingredients ul li,
+  .directions ol li {
+      font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipe-card {
+      padding: 0 0.5rem 1.5rem;
+  }
+
+  .name-of-recipe {
+      flex-direction: column;
+  }
+
+  .name-of-recipe h1 {
+      font-size: 1rem;
+  }
+
+  .name-of-recipe .rating {
+      font-size: 1.2rem;
+  }
+
+  .user-photo img {
+      width: 30px;
+      height: 30px;
+  }
+
+  .review-input textarea {
+      height: 70px;
+  }
+  button[type="submit"] {
+    font-size: 0.8rem;
+    border-radius: 25px;
+  }
+}
   

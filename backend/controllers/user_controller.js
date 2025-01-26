@@ -152,4 +152,26 @@ export const getFollowers= async (req,res)=>{
 
 }
 
+export const getNoOfLikedRecipes=async(req,res)=>{
+  const userId = req.userId;
+
+  try {
+      // Find the user by ID and exclude the password field
+      const user = await userModel.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const liked=user.likedRecipes.length;
+  
+      res.status(200).json({
+        message: "User retrieved successfully",
+        liked,
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error retrieving user", error: error.message });
+  }
+}
+
 

@@ -59,3 +59,41 @@ export const getRatings = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
 };
+
+
+export const getAverageRating = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+
+    // Validate if recipeId exists
+    if (!recipeId) {
+      return res.status(400).json({ message: "Recipe ID is required." });
+    }
+
+    const recipe=await Recipe.findById(recipeId)
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found." });
+    }
+    const ratings = await Rating.find({ "recipe._id": recipe._id });
+
+    console.log(ratings)
+    // Calculate the average rating
+    const totalRatings = ratings.length;
+    const totalScore = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+    const averageRating = totalRatings > 0 ? totalScore / totalRatings : 0;
+
+    console.log('Average Rating: ', averageRating);
+    console.log('Total Score: ', totalScore);
+    console.log('Total Ratings: ', totalRatings);
+
+    // Respond with the calculated average rating and total ratings
+    res.status(200).json({
+      averageRating: Number(averageRating.toFixed(1)), // Send numeric value rounded to 1 decimal place
+      totalRatings,
+    });
+  } catch (error) {
+    console.error("Error calculating average rating:", error);
+    res.status(500).json({ message: "Error fetching ratings." });
+  }
+};
+

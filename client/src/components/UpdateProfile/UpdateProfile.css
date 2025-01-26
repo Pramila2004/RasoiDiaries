@@ -1,77 +1,120 @@
 .user-profile-form {
-    max-width: 50%;
-    margin: 2rem auto;
-    padding: 20px;
-    margin-top: -20px;
+  max-width: 50%;
+  margin: 2rem auto;
+  padding: 20px;
+  margin-top: -20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.avatar-section img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.save-button {
+  color: white;
+}
+
+.remove-avatar-button {
+  background-color: #d9363e;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-avatar-button:hover {
+  background-color: #b12c30;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .user-profile-form {
+    max-width: 80%; /* Increase width on smaller screens */
+    padding: 15px;
   }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-section {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+
   .avatar-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     flex-direction: column;
+    align-items: center;
   }
-  
 
-
-  .avatar-section  img{
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
+  .avatar-section img {
+    width: 100px; /* Slightly larger image on smaller screens */
+    height: 100px;
   }
-  
+
   button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    margin-top: 10px;
   }
-  
-  .save-button {
-    color: white;
-  }
-  
 
-  
+  .save-button {
+    background-color: #ff6600; /* Adding background color for better visibility */
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile-form {
+    max-width: 90%; /* Max width increases to take up more space */
+    padding: 10px;
+  }
+
+  .avatar-section img {
+    width: 120px;
+    height: 120px; /* Larger image for better clarity on mobile */
+  }
+
+  button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
   .remove-avatar-button {
-    background-color: #d9363e;
-    color: white;
-    font-size: 0.9rem;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 10px 15px;
+    font-size: 1rem;
   }
-  
-  .remove-avatar-button:hover {
-    background-color: #b12c30;
-  }
-  
+}

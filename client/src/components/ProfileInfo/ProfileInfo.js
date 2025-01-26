@@ -1,21 +1,36 @@
-import React, { useContext } from "react";
-import {  FaEnvelope, FaUserAlt, FaHeart } from "react-icons/fa";
-import "./ProfileInfo.css"; // Add styling as needed
+import React, { useContext, useEffect, useState } from "react";
+import { FaEnvelope, FaUserAlt, FaHeart } from "react-icons/fa";
+import "./ProfileInfo.css";
 import { AuthContext } from "../../context/AuthContext.js";
+import { get } from "../../services/ApiEndpoint.js";
 
 const Profile = () => {
- 
   const { currentUser } = useContext(AuthContext);
+  const [liked, setLiked] = useState(0);
+
+  useEffect(() => {
+    const fetchNoOfLikedRecipes = async () => {
+      try {
+        const response = await get("api/user/getNoOfLikedRecipes");
+        if (response.status === 200) {
+          const data = response.data.liked;
+          setLiked(data);
+        }
+      } catch (err) {
+        console.log("Error fetching liked recipes:", err);
+      }
+    };
+
+    if (currentUser) {
+      fetchNoOfLikedRecipes();
+    }
+  }, [currentUser]);
 
   return (
     <div className="profile-container">
       <div className="profile-header">
         <div className="avatar-container">
-          <img
-            src={currentUser.avatar}
-            alt="avatar"
-            className="avatar"
-          />
+          <img src={currentUser.avatar} alt="avatar" className="avatar" />
         </div>
         <h1 className="username">{currentUser.username}</h1>
       </div>
@@ -26,23 +41,13 @@ const Profile = () => {
         </div>
         <div className="detail-item">
           <FaUserAlt className="icon" />
-          <span className="detail-text">{currentUser.bio || "No Bio provided"}</span>
+          <span className="detail-text">
+            {currentUser.bio || "No Bio provided"}
+          </span>
         </div>
         <div className="detail-item">
           <FaHeart className="icon" />
-          <span className="detail-text">
-          {currentUser.likedRecipes.length || '0'}
-          </span>
-        </div>
-      </div>
-      <div className="follow-section">
-        <div className="followers">
-          <h3>Followers</h3>
-          <p>{currentUser.followers.length || '0'}</p>
-        </div>
-        <div className="following">
-          <h3>Following</h3>
-          <p>{currentUser.following.length || '0'}</p>
+          <span className="detail-text">{liked || "0"}</span>
         </div>
       </div>
     </div>

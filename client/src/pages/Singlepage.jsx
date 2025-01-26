@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import toast from 'react-hot-toast'
-import { get, post } from '../services/ApiEndpoint.js';  // Assuming this is your service for making API calls
+import toast from 'react-hot-toast';
+import { get, post } from '../services/ApiEndpoint.js'; // Assuming this is your service for making API calls
 import '../styles/Singlepage.css';
+import moment from 'moment';
 
 export default function Singlepage() {
   const { id } = useParams();
@@ -10,39 +11,82 @@ export default function Singlepage() {
   const [createdBy, setCreatedBy] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [ratings, setRatings] = useState([]); // Store ratings data
-  const [userRating, setUserRating] = useState(1); // Track user's rating input
-  const [reviewText, setReviewText] = useState(''); // Track review text
+  const [ratings, setRatings] = useState([]);
+  const [userRating, setUserRating] = useState(1);
+  const [reviewText, setReviewText] = useState('');
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalRatings, setTotalRatings] = useState(0);
 
   useEffect(() => {
-    // Fetch recipe by ID
     const fetchRecipe = async () => {
       try {
-        const response = await get(`/api/recipe/getSingleRecipe/${id}`); // Adjust endpoint if necessary
-        setRecipe(response.data.recipe); // Update state with fetched recipe
-        setCreatedBy(response.data.user); // Update state with fetched recipe
-        setLoading(false);  // Set loading to false after recipe is fetched
+        const response = await get(`/api/recipe/getSingleRecipe/${id}`);
+        setRecipe(response.data.recipe);
+        setCreatedBy(response.data.user);
       } catch (err) {
         setError('Failed to load recipe');
+      } finally {
         setLoading(false);
       }
     };
 
-    const fetchRatings = async () => {
+    fetchRecipe();
+  }, [id]);
+
+  useEffect(() => {
+    if (recipe?._id) {
+      const fetchAverageRating = async () => {
         try {
-          const response = await get(`/api/rating/getRatings/${id}`); 
-          console.log('All retings',response.data.ratings)
-          setRatings(response.data.ratings);
+          const response = await get(`/api/rating/averageRating/${recipe._id}`);
+          setAverageRating(response.data.averageRating);
+          setTotalRatings(response.data.totalRatings);
         } catch (err) {
-          console.log('Error fetching ratings', err);
+          console.error('Error fetching average rating:', err);
         }
       };
-  
-      fetchRecipe();
-      fetchRatings();
-  
 
-  }, [id,ratings]);  // Dependency array only includes 'id'
+      const fetchRatings = async () => {
+        try {
+          const response = await get(`/api/rating/getRatings/${recipe._id}`);
+          setRatings(response.data.ratings);
+        } catch (err) {
+          console.error('Error fetching ratings:', err);
+        }
+      };
+
+      fetchAverageRating();
+      fetchRatings();
+    }
+  }, [recipe?._id]);
+
+  const handleRatingSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = { rating: userRating, review: reviewText };
+      const response = await post(`/api/rating/addRating/${id}`, data);
+      if (response.status === 200) {
+        toast.success(response.message || 'Rating submitted successfully');
+        setUserRating(1);
+        setReviewText('');
+        setRatings((prevRatings) => [...prevRatings, response.data.newRating]);
+        const updatedAverage =
+          (averageRating * totalRatings + userRating) / (totalRatings + 1);
+        setAverageRating(updatedAverage);
+        setTotalRatings(totalRatings + 1);
+      }
+    } catch (err) {
+      console.error('Error submitting rating:', err);
+      toast.error('Failed to submit rating');
+    }
+  };
+
+  const renderStars = (rating) => {
+    return [1, 2, 3, 4, 5].map((num) => (
+      <span key={num} className={num <= Math.round(rating) ? 'gold-star' : 'gray-star'}>
+        ★
+      </span>
+    ));
+  };
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -52,39 +96,25 @@ export default function Singlepage() {
     return <div className="error">{error}</div>;
   }
 
-  const handleRatingSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const data = { rating: userRating, review: reviewText };
-      const response = await post(`/api/rating/addRating/${id}`, data); // Adjust endpoint as needed
-      if (response.status === 200) {
-        toast.success(response.message || 'Rating sent successfully');
-        setUserRating(1);
-        setReviewText('');
-      }
-    } catch (err) {
-      console.error('Error adding rating', err);
-    }
-  };
-
   return (
     <div className="single-page">
       <div className="recipe-card">
         <div className="name-of-recipe">
           <div className="left-side">
             <h1>{recipe.title || 'Untitled Recipe'}</h1>
-            <p>{recipe.subtitle || 'Delicious and easy to make!'}</p>
+            <p>{recipe.description || 'Delicious and easy to make!'}</p>
             <div className="submitted-by">
               <div className="user-photo">
-                <img src={createdBy.avatar || 'images/user.png'} alt="User" />
+                <img src={createdBy?.avatar || 'images/user.png'} alt="User" />
               </div>
               <div className="user-info">
-                <h4>{createdBy.username || 'Anonymous'}</h4>
+                <h4>{createdBy?.username || 'Anonymous'}</h4>
+                <div className="date">Created: {moment(recipe.createdAt).format('D MMMM YYYY')}</div>
               </div>
             </div>
           </div>
           <div className="right-side">
-            <div className="rating">★★★★☆</div>
+            <div className="rating">{renderStars(averageRating)}</div>
           </div>
         </div>
         <div className="image-container">
@@ -96,9 +126,8 @@ export default function Singlepage() {
         <div className="content">
           <div className="ingredients">
             <div className="info">
-                
               <p>🍴 {recipe.servings || '2'} servings</p>
-              <p>⏱ {recipe.prepTime+recipe.cookTime || 'Not Provided'}</p>
+              <p>⏱ {recipe.prepTime + recipe.cookTime || 'Not Provided'} mins</p>
             </div>
             <h2>Ingredients</h2>
             <ul>
@@ -116,75 +145,71 @@ export default function Singlepage() {
             </ol>
           </div>
         </div>
-        {/* Rating Section */}
-      <div className="rating-section">
-        <h3>Rate This Recipe</h3>
-        <form onSubmit={handleRatingSubmit}>
-          <div className="rating-input">
-          <div className="rating-input">
-            <label>Rating: </label>
-            <div className="stars-big">
+
+        <div className="rating-section">
+          <h3>Rate This Recipe</h3>
+          <form onSubmit={handleRatingSubmit}>
+            <div className="rating-input">
+              <label>Rating: </label>
+              <div className="stars-big">
                 {[1, 2, 3, 4, 5].map((num) => (
-                <span
+                  <span
                     key={num}
                     className={`star ${num <= userRating ? 'selected' : ''}`}
                     onClick={() => setUserRating(num)}
-                >
+                  >
                     ★
-                </span>
+                  </span>
                 ))}
+              </div>
             </div>
+            <div className="review-input">
+              <label>Review: </label>
+              <textarea
+                required
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+                placeholder="Add your review here"
+              />
             </div>
-
-          </div>
-          <div className="review-input">
-            <label>Review: </label>
-            <textarea
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
-              placeholder="Add your review here"
-            />
-          </div>
-          <button type="submit">Submit Rating</button>
-        </form>
-      </div>
-
-      {/* All Ratings Section */}
-      <div className="ratings-list">
-        <h3>All Ratings</h3>
-        {ratings.length > 0 ? (
-            ratings.map((rating, index) => (
-            <div key={index} className="rating-item">
-                <div className="user-photo">
-                <img src={rating.user?.avatar || 'images/user.png'} alt={rating.user?.username || 'User'} />
-                </div>
-                <div className="user-info">
-                <h5>{rating.user?.username || 'Anonymous'}</h5>
-                <div className="user-rating">
-                    <div className="stars">
-                    {[1, 2, 3, 4, 5].map((num) => (
-                        <span
-                        key={num}
-                        className={`star ${num <= rating.rating ? 'gold' : 'white'}`}
-                        >
-                        ★
-                        </span>
-                    ))}
-                    </div>
-                </div>
-                <p className="review-text">{rating.review || 'No review provided.'}</p>
-                </div>
-            </div>
-            ))
-        ) : (
-            <p>No ratings yet.</p>
-        )}
+            <button type="submit">Submit Rating</button>
+          </form>
         </div>
 
-
+        <div className="ratings-list">
+          <h3>All Ratings</h3>
+          {ratings.length > 0 ? (
+            ratings.map((rating, index) => (
+              <div key={index} className="rating-item">
+                <div className="user-photo">
+                  <img
+                    src={rating.user?.avatar || 'images/user.png'}
+                    alt={rating.user?.username || 'User'}
+                  />
+                </div>
+                <div className="user-info">
+                  <h5>{rating.user?.username || 'Anonymous'}</h5>
+                  <div className="user-rating">
+                    <div className="stars">
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <span
+                          key={num}
+                          className={`star ${num <= rating.rating ? 'gold' : 'white'}`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="review-text">{rating.review || 'No review provided.'}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No ratings yet.</p>
+          )}
+        </div>
+      </div>
     </div>
-
-    </div>
-    
   );
 }

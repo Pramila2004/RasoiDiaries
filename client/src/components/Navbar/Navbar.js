@@ -27,11 +27,15 @@ export default function Navbar() {
             </>
           ):(
             <>
-            <Link to="/profile">
-              <span>{currentUser.username}</span>
-              <button className="login-btn">Profile</button>
+            <Link to="/profile" className="profile-link">
+              <div className="profile-info">
+                <img src={currentUser.avatar} alt="" className="user-img" />
+                <span className="username">{currentUser.username}</span>
+              </div>
+              <button className="profile-btn">Profile</button>
             </Link>
-            </>
+          </>
+          
           )}
           
 

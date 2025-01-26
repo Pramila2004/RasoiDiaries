@@ -8,7 +8,7 @@ import Add_recepie from './pages/Add_recepie'
 import Profile_Update from './pages/Profile_Update'
 import Liked from './pages/Liked'
 import MyRecipes from './pages/MyRecipes';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Home_Components/Navbar';
 import Search from './pages/Search'
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -19,7 +19,7 @@ import Register from './pages/Register';
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+          <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />

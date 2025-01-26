@@ -1,74 +1,166 @@
+/* General Card styles */
 .card {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-image-container {
-    position: relative;
-  }
-  
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card image container */
+.card-image-container {
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 170px;
+  display: block;
+}
+
+/* Heart icon positioning */
+.heart-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.heart-icon span {
+  color: red;
+  font-size: 16px;
+}
+
+/* Card content */
+.card-content {
+  padding: 16px;
+}
+
+.recipe-category {
+  font-size: 12px;
+  color: gray;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.recipe-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+/* Card rating */
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  color: #f39c12;
+  font-size: 14px;
+}
+
+.ratings-count {
+  font-size: 12px;
+  color: gray;
+}
+
+/* Star icons */
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.gold-star {
+  color: gold;
+  font-size: 1.2rem;
+}
+
+.gray-star {
+  color: rgb(197, 195, 195);
+  font-size: 1.2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Adjust card image height for mobile devices */
   .card-image {
-    width: 100%;
-    height: 200px;
-    display: block;
+    height: 150px; 
   }
-  
-  .heart-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: white;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  }
-  
-  .heart-icon span {
-    color: red;
+
+  /* Adjust font sizes */
+  .recipe-title {
     font-size: 16px;
   }
 
-  
-  .card-content {
-    padding: 16px;
-  }
-  
   .recipe-category {
-    font-size: 12px;
-    color: gray;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+    font-size: 11px;
   }
-  
-  .recipe-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0 0 8px 0;
-  }
-  
-  .card-rating {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
+
   .stars {
-    color: #f39c12;
+    font-size: 13px;
+  }
+
+  .ratings-count {
+    font-size: 11px;
+  }
+
+  /* Make sure the heart icon doesn't overlap on smaller screens */
+  .heart-icon {
+    width: 28px;
+    height: 28px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .heart-icon span {
     font-size: 14px;
   }
-  
-  .ratings-count {
-    font-size: 12px;
-    color: gray;
+}
+
+@media (max-width: 480px) {
+  /* Reduce the card image size further for very small screens */
+  .card-image {
+    height: 130px;
   }
-  
+
+  /* Further decrease font sizes for small screens */
+  .recipe-title {
+    font-size: 14px;
+  }
+
+  .recipe-category {
+    font-size: 10px;
+  }
+
+  .stars {
+    font-size: 12px;
+  }
+
+  .ratings-count {
+    font-size: 10px;
+  }
+
+  /* Heart icon adjustments for mobile screens */
+  .heart-icon {
+    width: 24px;
+    height: 24px;
+    top: 4px;
+    right: 4px;
+  }
+
+  .heart-icon span {
+    font-size: 12px;
+  }
+}

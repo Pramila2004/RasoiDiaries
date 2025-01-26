@@ -234,6 +234,7 @@ const RecipeForm = () => {
           <option value="Beef">Beef</option>
           <option value="Chicken">Chicken</option>
           <option value="Vegetarian">Vegetarian</option>
+          <option value="Salad">Salad</option>
         </select>
       </div>
 

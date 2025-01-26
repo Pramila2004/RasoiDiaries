@@ -16,18 +16,9 @@ export default function About() {
       <section className="about-content">
         <h2>Our Story</h2>
         <p>
-          We started with a simple idea: to bring people together through
-          their love of cooking and sharing recipes. Whether you’re a
-          professional chef or a home cook, we believe everyone has a recipe
-          worth sharing.
+        Our journey began with a simple yet powerful vision: to unite people through their shared passion for cooking and recipe sharing.
+        Whether you’re a seasoned professional chef or a passionate home cook, we believe that every individual has a unique recipe worth sharing with the world
         </p>
-
-        <h2>What We Offer</h2>
-        <ul>
-          <li>A platform to share your favorite recipes.</li>
-          <li>A collection of delicious recipes from around the world.</li>
-          <li>Tips and tricks to enhance your culinary skills.</li>
-        </ul>
 
         <h2>Join Us</h2>
         <p>

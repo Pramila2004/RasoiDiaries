@@ -1,85 +1,154 @@
 .auth-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 640px;
-    margin-top: -20px;
-    background: url('../../public/images/auth2.avif') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 618.8px;
+  margin-top: -20px;
+  background: url('../components/Assets/bg1.avif') no-repeat center center/cover;
+  padding: 20px; /* Add padding for smaller screens */
+}
+
+/* Form styles with glass effect */
+.auth-form {
+  backdrop-filter: blur(10px); /* Blur effect */
+  background: rgba(255, 255, 255, 0.2); /* Transparent white */
+  padding: 30px 40px;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+  margin-right: 0; /* Centered by default */
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+  font-weight: bolder;
+  text-shadow: 2px 2px 4px #fb914b;
+  color: #ff6600; /* Highlighted text */
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #ff6600; /* Highlighted color for text */
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(62, 60, 60, 0.5); /* Transparent input border */
+  border-radius: 5px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1); /* Slightly transparent input background */
+}
+
+.auth-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff6600; /* Highlighted button */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #ee6306; /* Slightly darker on hover */
+}
+
+.auth-form p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333; /* Light text */
+}
+
+.auth-form p a {
+  color: #ff6600; /* Highlighted link */
+  text-decoration: none;
+}
+
+.auth-form p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .auth-container {
+    height: auto;
+    padding: 40px 20px; /* Adjust padding for smaller viewports */
   }
-  
-  /* Form styles with glass effect */
+
   .auth-form {
-    backdrop-filter: blur(10px); /* Blur effect */
-    background: rgba(255, 255, 255, 0.2); /* Transparent white */
-    padding: 30px 40px;
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+    padding: 25px 30px; /* Reduce padding for medium screens */
+    max-width: 350px; /* Narrower form */
   }
-  
+
   .auth-form h2 {
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    color: #ff6600; /* White text for contrast */
+    font-size: 1.8rem; /* Adjust heading size */
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .form-group label {
-    font-size: 14px;
-    color: #ff6600; /* Light color for text */
-    margin-bottom: 5px;
-    display: block;
-  }
-  
+
   .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Transparent input border */
-    border-radius: 5px;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.1); /* Slightly transparent input background */
+    font-size: 14px; /* Consistent input size */
   }
-  
+}
 
-  
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column; /* Stack elements vertically for smaller devices */
+  }
+
+  .auth-form {
+    padding: 20px 25px; /* Compact form */
+    max-width: 320px; /* Further narrow form */
+  }
+
+  .auth-form h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-group input {
+    font-size: 13px; /* Smaller input size for compact layout */
+  }
+
   .auth-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #ff6600; /* Slightly transparent green */
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 15px; /* Slightly smaller button text */
+    padding: 8px; /* Reduce button padding */
   }
-  
-  .auth-button:hover {
-    background-color: #ee6306; /* Slightly darker green */
+}
 
+@media (max-width: 576px) {
+  .auth-container {
+    height: 100vh; /* Allow height to adjust for content */
+    padding: 20px 10px;
   }
-  
-  .auth-form p {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #eee; /* Light text */
+
+  .auth-form {
+    padding: 15px 20px; /* Minimal padding for very small devices */
+    max-width: 280px; /* Narrow form for smartphones */
   }
-  
-  .auth-form p a {
-    color: #ff6600; /* Green link */
-    text-decoration: none;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+
+  .auth-form h2 {
+    font-size: 1.4rem;
   }
-  
-  .auth-form p a:hover {
-    text-decoration: underline;
+
+  .form-group input {
+    font-size: 12px; /* Compact input size */
+    padding: 8px; /* Smaller input padding */
   }
-  
+
+  .auth-button {
+    font-size: 14px; /* Smaller button text */
+    padding: 7px; /* Compact button size */
+  }
+}

@@ -46,7 +46,6 @@ export default function Contact() {
   return (
     <div className="contact-page">
       <div className="contact-hero">
-        <h1>Contact Us</h1>
         <p>
           Welcome to our recipe-sharing community, where every dish tells a story!
         </p>
