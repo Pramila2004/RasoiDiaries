@@ -5,7 +5,7 @@ import { addRating, getAverageRating, getRatings } from '../controllers/comment_
 const router=express.Router();
 
 router.post('/addRating/:id',verifyToken, addRating);
-router.get('/getRatings/:id',verifyToken,getRatings);
+router.get('/getRatings/:id',getRatings);
 router.get("/averageRating/:id", getAverageRating);
 
 
