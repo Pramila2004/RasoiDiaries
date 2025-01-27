@@ -4,8 +4,8 @@ import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SinglePage from './pages/Singlepage'
 import Profile from './pages/Profile';
-import Add_recepie from './pages/Add_recepie'
-import Profile_Update from './pages/Profile_Update'
+import ProfileUpdate from './pages/Profile_Update';
+import AddRecipe from './pages/Add_recepie';
 import Liked from './pages/Liked'
 import MyRecipes from './pages/MyRecipes';
 import Navbar from './components/Home_Components/Navbar';
@@ -29,8 +29,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/singlepage/:id" element={<SinglePage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/updateProfile" element={<Profile_Update />} />
-        <Route path="/addRecipe" element={<Add_recepie />} />
+        <Route path="/updateProfile" element={<ProfileUpdate />} />
+        <Route path="/addRecipe" element={<AddRecipe />} />
         <Route path="/liked" element={<Liked />} />
         <Route path="/myRecipes" element={<MyRecipes />} />
       </Routes>

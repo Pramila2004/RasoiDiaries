@@ -68,7 +68,7 @@ const RecipeForm = () => {
         <div className="img-upload">
           <label htmlFor="coverPhoto" className="upload-label"></label>
           <div className="avatar-section">
-            <img src={recipe.photo} alt="photo" className="banner-image" />
+            <img src={recipe.photo} alt="Recipe" className="banner-image" />
           </div>
         </div>
 
