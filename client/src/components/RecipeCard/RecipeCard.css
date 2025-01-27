@@ -57,6 +57,8 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0 0 8px 0;
+  text-decoration: none;
+  color: black;
 }
 
 /* Card rating */

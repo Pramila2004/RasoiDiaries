@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
       return null;
     }
   });
-
+    
   const updateUser = (data) => {
     setCurrentUser(data); // Update the current user in the state
    
