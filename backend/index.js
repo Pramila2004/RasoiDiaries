@@ -34,6 +34,9 @@ app.use('/api/rating', commentRoutes);
 
 // Serve React static files in production
 if (process.env.NODE_ENV === 'production') {
+    // Fix for __dirname in ES modules
+    const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
     // Serve static files from React's build folder
     app.use(express.static(path.join(__dirname, 'client', 'build')));
 
