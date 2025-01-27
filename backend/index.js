@@ -20,7 +20,7 @@ DBConnection();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://rasoi-diaries.onrender.com',
     credentials: true,
 }));
 
