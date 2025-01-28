@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaHome,
@@ -16,7 +16,15 @@ import { AuthContext } from "../context/AuthContext";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { updateUser } = useContext(AuthContext);
+  const { currentUser, updateUser } = useContext(AuthContext);
+ 
+
+    useEffect(() => {
+      if (!currentUser) {
+        return navigate("/login");
+      }
+    }, []); 
+  
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -36,14 +44,14 @@ const Profile = () => {
   return (
     <div className="recipes-container">
       <aside className="sidebar">
-        <nav>
+        <div className="navbar">
           <ul>
             <NavLink
               to="/profile"
-              className={({ isActive }) => (isActive ? "menu-item active" : "menu-item")}
+              className={({ isActive }) => (isActive ? "menu-item active" : "menu-item active")}
             >
               <li>
-                <FaHome className="menu-icon" /> Home
+                <FaHome className="menu-icon active" /> Home
               </li>
             </NavLink>
             <NavLink
@@ -79,7 +87,7 @@ const Profile = () => {
               </li>
             </NavLink>
           </ul>
-        </nav>
+        </div>
         <button onClick={handleLogout} className="logout-button">
           <FaSignOutAlt className="logout-icon" /> Log Out
         </button>

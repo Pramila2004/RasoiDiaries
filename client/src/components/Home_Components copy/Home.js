@@ -1,7 +1,6 @@
 import React from "react";
 import BannerBackground from "../Assets/home-banner-background.png";
 import BannerImage from "../Assets/home-banner-image.png";
-import { FiArrowRight } from 'react-icons/fi';
 
 
 const Home = () => {
@@ -12,19 +11,19 @@ const Home = () => {
           <img src={BannerBackground} alt="" />
         </div>
         <div className="home-text-section">
-          <h1 className="primary-heading">
+          <div className="primary-heading">
             Share The Secret, Spread The Flavor
-          </h1>
+          </div>
           <p className="primary-text">
-          A community where food lovers connect to explore 
-          diverse flavors, spark creativity, and savor dishes 
-          from around the world.
+          A community where food lovers connect to explore diverse flavors, spark creativity, and savor dishes from around the world.
           </p>
           <a href="/search"className="explore-link">
-            <button className="secondary-button">
-            Explore <FiArrowRight />{" "}
-            </button>
+          <button className="secondary-button">
+            Explore 
+          </button>
+          
           </a>
+          
         </div>
         <div className="home-image-section">
           <img src={BannerImage} alt="" />

@@ -15,9 +15,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import { FiLogIn, FiUserPlus, FiUser } from 'react-icons/fi';
-
-
 import { AuthContext } from "../../context/AuthContext.js";
 
 const Navbar = () => {
@@ -47,19 +44,19 @@ const Navbar = () => {
     },
     {
       text: "Login",
-      icon: <FiLogIn />,
+      icon: <PhoneRoundedIcon />,
       link: "/login",
       condition: !currentUser,
     },
     {
       text: "Signup",
-      icon: <FiUserPlus />,
+      icon: <PhoneRoundedIcon />,
       link: "/register",
       condition: !currentUser,
     },
     {
-      text: "Profile",
-      icon: <FiUser />,
+      text: "profile",
+      icon: <PhoneRoundedIcon />,
       link: "/profile",
       condition: currentUser,
     },

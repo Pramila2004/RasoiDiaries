@@ -24,13 +24,13 @@ const Work = () => {
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        <p className="primary-subheading">Work</p>
-        <h1 className="primary-heading">How It Works</h1>
-        <p className="primary-text">
+        <p className="primary-wksubheading">Work</p>
+        <div className="primary-wkheading">How It Works</div>
+        <div className="primary-wktext">
         Upload, share, and explore a wide variety of recipes from diverse cuisines.
         Connect with fellow food enthusiasts, exchange ideas, and inspire creativity.
         Find recipes tailored to your preferences and discover new flavors to try.
-        </p>
+        </div>
       </div>
       <div className="work-section-bottom">
         {workInfoData.map((data) => (

@@ -12,18 +12,21 @@ const About = () => {
         <img src={AboutBackgroundImage} alt="" />
       </div>
       <div className="about-section-text-container">
-        <p className="primary-subheading">About</p>
-        <h1 className="primary-heading">
+        <div className="primary-subheading">About</div>
+        <div className="primary-abheading">
         A Journey of Taste and Togetherness
-        </h1>
-        <p className="primary-text">
+        </div>
+        <div className="primary-abtext">
         A space for food enthusiasts to connect, share, and celebrate diverse flavors from around the world.
         Together, we inspire creativity and bring people closer through the joy of cooking and sharing.
-        </p>
+        </div>
+        
         <div className="about-buttons-container">
           <a href="/about">
-            <button className="secondary-button">About Us</button>
+          <button className="secondary-button">Learn More</button>
           </a>
+          
+          
         </div>
       </div>
     </div>

@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import {  useNavigate } from "react-router-dom";
 import { FaHome, FaHeart, FaBook, FaUserEdit, FaSignOutAlt,FaUtensils } from "react-icons/fa";
 import "../styles/Profile.css";
 
 import ProfileUpdate from "../components/UpdateProfile/UpdateProfile.js";
+import { AuthContext } from "../context/AuthContext.js";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
+  
+  if (!currentUser) {
+    return navigate("/login");
+  }
   return (
     <div className="recipes-container">
       <aside className="sidebar">
-        <nav>
+        <div className="navbar">
           <ul>
             <a href="/profile">
               <li className="menu-item ">
@@ -36,7 +44,7 @@ const Profile = () => {
               </li>
             </a>
           </ul>
-        </nav>
+        </div>
         <button className="logout-button">
           <FaSignOutAlt className="logout-icon" /> Log Out
         </button>

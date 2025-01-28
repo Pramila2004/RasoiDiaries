@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <div className="recipes-container">
       <aside className="sidebar">
-        <nav>
+        <div className="navbar">
           <ul>
             <a href="/profile">
               <li className="menu-item">
@@ -34,7 +34,7 @@ const Profile = () => {
               </li>
             </a>
           </ul>
-        </nav>
+        </div>
         <button className="logout-button">
           <FaSignOutAlt className="logout-icon" /> Log Out
         </button>

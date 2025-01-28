@@ -26,11 +26,20 @@ const Profile = () => {
     }
   }, [currentUser]);
 
+  // Render a loading or placeholder message if `currentUser` is null
+  if (!currentUser) {
+    return <div className="profile-container">Loading profile...</div>;
+  }
+
   return (
     <div className="profile-container">
       <div className="profile-header">
         <div className="avatar-container">
-          <img src={currentUser.avatar} alt="avatar" className="avatar" />
+          <img
+            src={currentUser.avatar || "images/user.png"}
+            alt="avatar"
+            className="avatar"
+          />
         </div>
         <h1 className="username">{currentUser.username}</h1>
       </div>

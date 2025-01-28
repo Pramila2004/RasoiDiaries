@@ -70,7 +70,7 @@ const Search = () => {
           </button>
         </div>
 
-        <nav className="category-nav">
+        <div className="category-nav">
           {categories.map((category) => (
             <button
               key={category}
@@ -80,7 +80,7 @@ const Search = () => {
               {category}
             </button>
           ))}
-        </nav>
+        </div>
       </header>
 
       <div className="recipe-grid">

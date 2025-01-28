@@ -21,14 +21,19 @@ export default function Singlepage() {
     const fetchRecipe = async () => {
       try {
         const response = await get(`/api/recipe/getSingleRecipe/${id}`);
-        setRecipe(response.data.recipe);
-        setCreatedBy(response.data.user);
+        if (response?.data) {
+          setRecipe(response.data.recipe || {});
+          setCreatedBy(response.data.user || {});
+        } else {
+          setError('Invalid response data');
+        }
       } catch (err) {
         setError('Failed to load recipe');
       } finally {
         setLoading(false);
       }
     };
+    
 
     fetchRecipe();
   }, [id]);
@@ -38,8 +43,8 @@ export default function Singlepage() {
       const fetchAverageRating = async () => {
         try {
           const response = await get(`/api/rating/averageRating/${recipe._id}`);
-          setAverageRating(response.data.averageRating);
-          setTotalRatings(response.data.totalRatings);
+          setAverageRating(response.data?.averageRating || 0);
+          setTotalRatings(response.data?.totalRatings || 0);
         } catch (err) {
           console.error('Error fetching average rating:', err);
         }
@@ -48,7 +53,7 @@ export default function Singlepage() {
       const fetchRatings = async () => {
         try {
           const response = await get(`/api/rating/getRatings/${recipe._id}`);
-          setRatings(response.data.ratings);
+          setRatings(response.data?.ratings || []);
         } catch (err) {
           console.error('Error fetching ratings:', err);
         }
@@ -68,7 +73,10 @@ export default function Singlepage() {
         toast.success(response.message || 'Rating submitted successfully');
         setUserRating(1);
         setReviewText('');
-        setRatings((prevRatings) => [...prevRatings, response.data.newRating]);
+
+     const updatedRatings = await get(`/api/rating/getRatings/${recipe._id}`);
+      setRatings(updatedRatings.data?.ratings || []);
+
         const updatedAverage =
           (averageRating * totalRatings + userRating) / (totalRatings + 1);
         setAverageRating(updatedAverage);

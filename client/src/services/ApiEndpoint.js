@@ -2,14 +2,16 @@ import axios from 'axios'
 
 
 
-const instance=axios.create({
-    baseURL:'https://backend-stlp.onrender.com',
-    headers:{
-        'Content-Type':'application/json'
-    },
-    withCredentials:true,
-    timeout: 10000,
-})
+const instance = axios.create({
+  baseURL: process.env.NODE_ENV === 'production'
+      ? 'https://backend-stlp.onrender.com'
+      : 'http://localhost:4000',
+  headers: {
+      'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+});
+
 
 
 export const get = (url, params) => instance.get(url, { params });

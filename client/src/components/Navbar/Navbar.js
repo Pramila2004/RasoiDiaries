@@ -29,7 +29,7 @@ export default function Navbar() {
             <>
             <Link to="/profile" className="profile-link">
               <div className="profile-info">
-                <img src={currentUser.avatar} alt="" className="user-img" />
+                <img src={currentUser.avatar || 'images/user.png'} alt="" className="user-img" />
                 <span className="username">{currentUser.username}</span>
               </div>
               <button className="profile-btn">Profile</button>

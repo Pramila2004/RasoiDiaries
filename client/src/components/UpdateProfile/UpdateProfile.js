@@ -18,7 +18,6 @@ const UserProfileForm = () => {
 
     try {
       const response = await put('/api/user/update', {username,email,bio,avatar,});
-      console.log('avatar : ',avatar)
       if (response.status === 200) {
         toast.success(response.data.message || "Profile updated successfully!");
         updateUser(response.data.user);
@@ -35,7 +34,7 @@ const UserProfileForm = () => {
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="form-section">
           <div className="avatar-section">
-            <img src={avatar} alt="Avatar" className="avatar-preview" />
+            <img src={avatar || 'images/user.png'} alt="Avatar" className="avatar-preview" />
           </div>
           <UploadWidget
             uwConfig={{

@@ -10,6 +10,11 @@ import contactRoutes from './routes/comment.js';
 import commentRoutes from './routes/comment.js';
 import path from 'path';
 
+const allowedOrigins = [
+    'http://localhost:3000', // Development frontend
+    'https://rasoi-diaries.onrender.com', // Production frontend
+];
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -19,10 +24,19 @@ DBConnection();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: 'https://rasoi-diaries.onrender.com',
-    credentials: true,
-}));
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Allow cookies
+};
+
+app.use(cors(corsOptions));
+
 
 // API Routes
 app.use('/api/auth', authRoutes);

@@ -42,6 +42,7 @@ const UploadRecipe = ({ uwConfig, setPhoto }) => {
       ref={uploadButtonRef}
       id="upload_widget"
       className="cloudinary-button"
+      style={{backgroundColor:'#ff6600', width:'max-content',margin:'1rem'}}
     >
       Upload Image
     </button>
