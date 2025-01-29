@@ -6,7 +6,7 @@ import "../styles/search.css";
 import { get } from "../services/ApiEndpoint";
 import { AuthContext } from "../context/AuthContext";
 
-const categories = ["All", "Vegetarian", "Chicken", "Salad", "Lunch", "Dinner", "Desserts", "Snacks"];
+const categories = ["All", "Vegetarian", "Diet", "Gluten-Free", "Vegan", "Japanese", "Keto","Korean","Thai","Indonesian","Filipino","Malaysian","Mongolian","Iranian","Turkish"];
 
 const Search = () => {
   const [recipes, setRecipes] = useState([]);

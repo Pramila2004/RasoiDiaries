@@ -17,7 +17,6 @@ const Register = () => {
       try {
           const request=await post('/api/auth/register',{username,email,password})
           const response=request.data;
-          console.log(response)
           if (request.status === 200) {
               toast.success(response.message || 'Register successful');
               e.target.reset();

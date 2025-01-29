@@ -231,10 +231,23 @@ const RecipeForm = () => {
           value={recipe.category}
           onChange={(e) => setRecipe({ ...recipe, category: e.target.value })}
         >
-          <option value="Beef">Beef</option>
-          <option value="Chicken">Chicken</option>
+          <option value="Indian">Indian</option>
           <option value="Vegetarian">Vegetarian</option>
-          <option value="Salad">Salad</option>
+          <option value="Diet">Diet</option>
+          <option value="Gluten-Free">Gluten-Free</option>
+          <option value="Vegan">Vegan</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Keto">Keto</option>
+          <option value="Korean">Korean</option>
+          <option value="Thai">Thai</option>
+          <option value="Indonesian">Indonesian</option>
+          <option value="Filipino">Filipino</option>
+          <option value="Malaysian">Malaysian</option>
+          <option value="Mongolian">Mongolian</option>
+          <option value="Iranian">Iranian</option>
+          <option value="Turkish">Turkish</option>
+          <option value="Other">Other</option>
+
         </select>
       </div>
 
@@ -246,7 +259,18 @@ const RecipeForm = () => {
         >
           <option value="India">India</option>
           <option value="Mexico">Mexico</option>
+          <option value="Japan">Japan</option>
+          <option value="Korea">Korea</option>
+          <option value="Thailand">Thailand</option>
+          <option value="Korea">Korea</option>
           <option value="UK">UK</option>
+          <option value="Indonesia">Indonesia</option>
+          <option value="Philippines">Philippines</option>
+          <option value="Malaysia">Malaysia</option>
+          <option value="Mongolia">Mongolia</option>
+          <option value="Iran">Iran</option>
+          <option value="Turkey">Turkey</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 

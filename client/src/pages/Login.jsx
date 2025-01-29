@@ -25,7 +25,6 @@ const Login = () => {
 
             if (request.status === 200) {
                 toast.success(response.message || 'Login successful');
-                console.log("On login page")
                 updateUser(response.user)
                 navigate("/");
             }

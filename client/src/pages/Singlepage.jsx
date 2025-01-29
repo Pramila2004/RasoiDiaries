@@ -104,6 +104,34 @@ export default function Singlepage() {
     return <div className="error">{error}</div>;
   }
 
+  const getCountryEmoji = (country) => {
+    const countryEmojis = {
+      "India": "🇮🇳",
+      "USA": "🇺🇸",
+      "Italy": "🇮🇹",
+      "France": "🇫🇷",
+      "Japan": "🇯🇵",
+      "Mexico": "🇲🇽",
+      "China": "🇨🇳",
+      "Thailand": "🇹🇭",
+      "Spain": "🇪🇸",
+      "Greece": "🇬🇷",
+      "Turkey": "🇹🇷",
+      "Brazil": "🇧🇷",
+      "South Korea": "🇰🇷",
+      "Vietnam": "🇻🇳",
+      "Germany": "🇩🇪",
+      "Russia": "🇷🇺",
+      "United Kingdom": "🇬🇧",
+      "Canada": "🇨🇦",
+      "Australia": "🇦🇺"
+      // Add more as needed
+    };
+  
+    return countryEmojis[country] || "🌍"; // Default globe emoji if country not found
+  };
+  
+
   return (
     <div className="single-page">
       <div className="recipe-card">
@@ -133,10 +161,12 @@ export default function Singlepage() {
         </div>
         <div className="content">
           <div className="ingredients">
-            <div className="info">
-              <p>🍴 {recipe.servings || '2'} servings</p>
-              <p>⏱ {recipe.prepTime + recipe.cookTime || 'Not Provided'} mins</p>
-            </div>
+          <div className="info">
+            <p>🍴 {recipe.servings || '2'} servings</p>
+            <p>⏱ {recipe.prepTime + recipe.cookTime || 'Not Provided'} mins</p>
+            <p style={{filter: 'grayscale(100%)'}}>🌍 {recipe.country || 'Not Provided'}</p>
+          </div>
+
             <h2>Ingredients</h2>
             <ul>
               {recipe.ingredients?.map((ingredient, index) => (

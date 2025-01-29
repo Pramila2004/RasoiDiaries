@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ProfilePic from "../Assets/john-doe-image.png";
 import { AiFillStar } from "react-icons/ai";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
