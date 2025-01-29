@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FaHome, FaHeart, FaBook, FaUserEdit, FaSignOutAlt,FaUtensils } from "react-icons/fa";
 import "../styles/Profile.css";
 import AddRecipe from '../components/AddRecipe/AddRecipe.js'
+import { post } from "../services/ApiEndpoint";
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
+import {  useNavigate } from "react-router-dom";
+
+
 const Profile = () => {
+  const navigate = useNavigate();
+    const { currentUser, updateUser } = useContext(AuthContext);
+   
+  
+      useEffect(() => {
+        if (!currentUser) {
+          return navigate("/login");
+        }
+      }, [navigate,currentUser]); 
+    
+  
+    const handleLogout = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await post("/api/auth/logout");
+        if (response.status === 200) {
+          toast.success(response.data.message || "Logout successful");
+          updateUser(null); // Clear user context
+          navigate("/", { replace: true }); // Navigate synchronously
+        }
+      } catch (error) {
+        toast.error(error.response?.data?.message || "An error occurred during logout");
+        console.error("Logout error:", error);
+      }
+    };
+  
   return (
     <div className="recipes-container">
       <aside className="sidebar">
@@ -35,9 +67,10 @@ const Profile = () => {
             </a>
           </ul>
         </div>
-        <button className="logout-button">
+        <button onClick={handleLogout} className="logout-button">
           <FaSignOutAlt className="logout-icon" /> Log Out
         </button>
+ 
       </aside>
       <main className="main-content">
         <section>

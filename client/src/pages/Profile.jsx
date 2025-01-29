@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaHeart,
@@ -13,6 +12,7 @@ import ProfileInfo from "../components/ProfileInfo/ProfileInfo";
 import { post } from "../services/ApiEndpoint";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Profile = () => {
       if (!currentUser) {
         return navigate("/login");
       }
-    }, []); 
+    }, [currentUser,navigate]); 
   
 
   const handleLogout = async (e) => {
